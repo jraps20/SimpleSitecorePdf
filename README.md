@@ -15,7 +15,7 @@ To modify solution, add Sitecore.ContentTesting.dll and Sitecore.Kernel.dll to t
 
 It's very simple to use this tool in other ways, simply call the correct pipeline with appropriate arguments
 
-```
+```cs
  var args = new GetScreenShotForURLArgs(item.ID);
  CorePipeline.Run("getScreenShotForURL", args);
 ```
