@@ -8,7 +8,7 @@ To modify solution, add Sitecore.ContentTesting.dll and Sitecore.Kernel.dll to t
     * This will install a command item to **[core]/sitecore/content/Applications/Content Editor/Ribbons/Chunks/Operations/Create PDF**
 	* You can then switch to the **[master]** database and view the command button at **Home > Operations > Create PDF**
 3. From Content Editor, select an item with a layout and click **Create PDF**
-4. A PDF of the item will be generated to **<webroot>\temp\screenshots**
+4. A PDF of the item will be generated to **[webroot]\temp\screenshots**
     * The name of the item is obfuscated as part of the screenshot generation process from Sitecore
 	
 # Extending
