@@ -48,4 +48,4 @@ The resulting PDf can be modified by adjusting settings in the native **Sitecore
 
 By extending the `getScreenShotForURL` pipeline with extra processors, additional information can be passed to **PhantomJS** prior to generation.  For example, if your page is behind a login, you can pass in a cookie to allow **PhantomJS** to consume the page properly. You could also dynamically adjust the view port, or generate multiple rendered sizes of a page.
 
-Also worth noting, by using this code, the original screenshot testing functionality will be broken. If your use-case relies on this code, you will need to modify the configs and adjust the `PopulateUrlParameters` and `AdjustScript` processors respectively.
+Also worth noting, by using this code, the original screenshot testing functionality will be broken. If your application relies on this code, you will need to modify the configs and adjust the `PopulateUrlParameters` and `AdjustScript` processors respectively.
