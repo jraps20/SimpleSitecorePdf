@@ -26,6 +26,8 @@ namespace SimpleSitecorePdf.Pipelines.GetScreenShotForUrl
                 xgr.DrawImage(img, 0, 0);
                 doc.Save(pdfPath);
             }
+
+            args.OutputFilename = args.OutputFilename.Replace(".png", ".pdf");
         }
     }
 }
