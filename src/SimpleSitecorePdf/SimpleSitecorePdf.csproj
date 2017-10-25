@@ -76,16 +76,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\GenerateScreenshotForContextItem.cs" />
+    <Compile Include="Pipelines\GetScreenShotForUrl\AdjustScript.cs" />
     <Compile Include="Pipelines\GetScreenShotForUrl\GeneratePdf.cs" />
-    <Compile Include="Pipelines\GetScreenShotForUrl\AddTimeoutToScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\SimpleSitecorePdf\SimpleSitecorePdf.config" />
+    <Content Include="App_Config\Include\SimpleSitecorePdf\DirectoToPdf.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Config\Include\SimpleSitecorePdf\ImageToPdf.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
