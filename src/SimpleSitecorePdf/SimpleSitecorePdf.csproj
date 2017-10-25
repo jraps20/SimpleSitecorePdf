@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\GenerateScreenshotForContextItem.cs" />
+    <Compile Include="Pipelines\GetScreenShotForUrl\LoadUrl.cs" />
     <Compile Include="Pipelines\GetScreenShotForUrl\AdjustScript.cs" />
     <Compile Include="Pipelines\GetScreenShotForUrl\GeneratePdf.cs" />
   </ItemGroup>
