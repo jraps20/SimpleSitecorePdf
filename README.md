@@ -2,6 +2,7 @@
 To modify source solution, add **Sitecore.ContentTesting.dll** and **Sitecore.Kernel.dll** to the **~\src\lib** directory for your given Sitecore version.
 
 # Quick Start Guides
+Use one of the two quick start guides below to quickly get up and running with this functionality.
 ## Direct To PDF
 This option is the most ideal. It relies on zero external dependencies and exclusively uses out-of-the-box Sitecore functionality. This method uses PhantomJS to generate the PDF. PhantomJS uses the *"print"* media when rendering directly to PDF. If you desire the *"screen"* media to be representative on a PDF, please use the *Image To PDF* method. If your CSS does not specify a difference between *"print"* and *"screen"*, then you can most likely use this method as well.
 
