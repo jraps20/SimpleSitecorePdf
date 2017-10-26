@@ -49,3 +49,94 @@ The resulting PDf can be modified by adjusting settings in the native **Sitecore
 By extending the `getScreenShotForURL` pipeline with extra processors, additional information can be passed to **PhantomJS** prior to generation.  For example, if your page is behind a login, you can pass in a cookie to allow **PhantomJS** to consume the page properly. You could also dynamically adjust the view port, or generate multiple rendered sizes of a page.
 
 Also worth noting, by using this code, the original screenshot testing functionality will be broken. If your application relies on this code, you will need to modify the configs and adjust the `PopulateUrlParameters` and `AdjustScript` processors respectively.
+
+# Troubleshooting
+
+If you're having difficulty rendering PDF, here are a few tips to help troubleshoot.
+
+### No File Generated
+
+During the generation of the PDF, Sitecore creates a JavaScript file in the **[webroot]\temp\screenshots** directory. The file has an obfuscated name, but if you are in this directory during generation you'll know it's for your current request. I recommend opening this file quickly in an editor because once generation is complete, the file is deleted.
+
+With the file contents, you can then execute PhantomJS manually. In my testing, this is the easiest way to find issues. Because PhantomJS is an executable, there is not great place (that I've found) to see errors during generation without manually running it.
+
+`CMD> C:\absolute\path\to\phantomjs.exe --ssl-protocl=any ObfuscatedJSFile.js`
+
+If it throws errors, google for them :)
+
+### Incorrect URL Being Generated
+
+See the "No File Generated" section for viewing the JS file Sitecore creates.  You will see the requested URL in there. If it isn't what you were hoping, you can modify the `LoadUrl` processor and adapt it to create your URL properly- for example, adding new query string parameters.
+
+### Page Requires Authentication
+
+Since pipelines run outside the context of a request, you can pass in cookies before the pipeline is ran.
+*Non-tested pseudo code below, but you get the gist of it*
+```cs
+ var args = new GetScreenShotForURLArgs(item.ID);
+ args.Cookies = new List<KeyValuePair<string, string>>(){new KeyValuePair<string, string>("cookiename", "cookievalue"};
+ CorePipeline.Run("getScreenShotForURL", args);
+```
+
+### List of properties that can be set prior to generation
+
+*Note: Because this framework is intended for testing, properties like Revision, Version, etc. are included. You can use them as part of this library, but will need to account for them with your own custom processors.*
+
+**Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.GetScreenShotForURLArgs**
+
+```cs
+ public ID ItemId { get; protected set; }
+
+ public string Revision { get; set; }
+
+ public string Language { get; set; }
+
+ public int? Version { get; set; }
+
+ public ID DeviceId { get; set; }
+
+ public int? CompareVersion { get; set; }
+
+ public string Combination { get; set; }
+
+ public IEnumerable<ShortID> MvVariants { get; set; }
+
+ public IEnumerable<ID> Rules { get; set; }
+
+ public IEnumerable<ID> Variants { get; set; }
+
+ public IEnumerable<KeyValuePair<string, string>> Cookies { get; set; }
+
+ [Obsolete("No longer supported. Use locking to ensure single generation per file.")]
+ public bool IgnoreAlreadyGenerating { get; set; }
+
+ public string Url { get; set; }
+
+ public string Script { get; set; }
+
+ public string ImageBase64 { get; set; }
+
+ public string OutputFilename { get; set; }
+
+ [Obsolete("Use locking to avoid multiple generations for the same screenshot at once.")]
+ public bool AlreadyGenerating { get; set; }
+
+ public Size ViewPortSize { get; set; }
+
+ public NameValueCollection UrlParameters { get; set; }
+```
+
+### Default Pipeline Processors
+```xml
+ <getScreenShotForURL>
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.GenerateFilename, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.CheckCachedImage, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.CheckDisabler, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.PopulateUrlParameters, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.LoadUrl, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.RenderScripts, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.WriteScriptToDisk, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.GenerateScreenShot, Sitecore.ContentTesting" />
+  <processor type="Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.DeleteScript, Sitecore.ContentTesting" />
+ </getScreenShotForURL>
+```
