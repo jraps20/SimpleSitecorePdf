@@ -60,7 +60,7 @@ During the generation of the PDF, Sitecore creates a JavaScript file in the **[w
 
 With the file contents, you can then execute PhantomJS manually. In my testing, this is the easiest way to find issues. Because PhantomJS is an executable, there is not great place (that I've found) to see errors during generation without manually running it.
 
-*Run the following command from the working directory ****[webroot]\temp\screenshots***
+*Run the following command from the working directory* **_[webroot]\temp\screenshots_**
 
 `CMD> C:\absolute\path\to\phantomjs.exe --ssl-protocl=any ObfuscatedJSFile.js`
 
