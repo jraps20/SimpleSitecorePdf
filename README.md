@@ -52,13 +52,15 @@ Also worth noting, by using this code, the original screenshot testing functiona
 
 # Troubleshooting
 
-If you're having difficulty rendering PDF, here are a few tips to help troubleshoot.
+If you're having difficulty rendering a PDF, here are a few tips to help troubleshoot.
 
 ### No File Generated
 
 During the generation of the PDF, Sitecore creates a JavaScript file in the **[webroot]\temp\screenshots** directory. The file has an obfuscated name, but if you are in this directory during generation you'll know it's for your current request. I recommend opening this file quickly in an editor because once generation is complete, the file is deleted.
 
 With the file contents, you can then execute PhantomJS manually. In my testing, this is the easiest way to find issues. Because PhantomJS is an executable, there is not great place (that I've found) to see errors during generation without manually running it.
+
+*Run the following command from the working directory ****[webroot]\temp\screenshots***
 
 `CMD> C:\absolute\path\to\phantomjs.exe --ssl-protocl=any ObfuscatedJSFile.js`
 
@@ -80,7 +82,7 @@ Since pipelines run outside the context of a request, you can pass in cookies be
 
 ### List of properties that can be set prior to generation
 
-*Note: Because this framework is intended for testing, properties like Revision, Version, etc. are included. You can use them as part of this library, but will need to account for them with your own custom processors.*
+*Note: Because by default this Sitecore framework is intended for testing, properties like Revision, Version, etc. are included. You can use them as part of this library, but will need to account for them with your own custom processors.*
 
 **Sitecore.ContentTesting.Pipelines.GetScreenShotForURL.GetScreenShotForURLArgs**
 
